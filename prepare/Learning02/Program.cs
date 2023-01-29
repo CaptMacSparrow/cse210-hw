@@ -23,10 +23,10 @@ class Program
         //job1.DisplayJobDetails();
         //job2.DisplayJobDetails();
         Resume myResume = new Resume();
+        myResume._name = "Jake Kiehl";
+
         myResume._jobs.Add(job1);
         myResume._jobs.Add(job2);
-
-        myResume._name = "Jake Kiehl";
 
         //Console.WriteLine($"{myResume._jobs[0]._jobTitle}");
         myResume.Display();
