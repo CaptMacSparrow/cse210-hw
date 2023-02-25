@@ -24,6 +24,7 @@ class Program
         //Console.WriteLine("Menu Options");
         //while (true)
         //{
+        Console.WriteLine();
         Console.WriteLine("Welcome to the Mindfulness Application.");
         Console.WriteLine();
         Console.WriteLine("Menu: ");
@@ -49,15 +50,21 @@ class Program
         {
             case "1":
                 activity = new BreathingActivity();
+                Console.WriteLine();
                 Console.WriteLine("This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
+                Console.WriteLine();
                 break;
             case "2":
                 activity = new ReflectionActivity();
+                Console.WriteLine();
                 Console.WriteLine("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+                Console.WriteLine();
                 break;
             case "3":
                 activity = new ListingActivity();
+                Console.WriteLine();
                 Console.WriteLine("This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
+                Console.WriteLine();
                 break;
             //case "4":
             //    Console.WriteLine("Thank you for using the Program! ");

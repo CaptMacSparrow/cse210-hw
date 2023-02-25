@@ -58,6 +58,7 @@ abstract class Activity
 
     protected void ShowEndMessage()
     {
+        Console.WriteLine();
         Console.WriteLine($"Congratulations!  You completed {GetType().Name} with {_duration} second breaths.");
     }
 
