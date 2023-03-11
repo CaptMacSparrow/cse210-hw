@@ -6,8 +6,7 @@ public class ChecklistGoal : Goal
     private string _strPoints;
     private string _strTargetCount;
     private string _strBonusPoints;
-    //private string _bonusPoints;
-    //private string _progressTracker;
+    
     public ChecklistGoal(string name, string description, int points, int totalPoints, int bonusPoints, string strPoints, int targetCount, string strTargetCount, string strBonusPoints, int interval, string strInterval) : base(name, description, points, totalPoints)
     {
         _targetCount = targetCount;
@@ -55,14 +54,13 @@ public class ChecklistGoal : Goal
     public override void RecordEvent()
     {
         _interval++;
-        Console.WriteLine($"Progress on checklist goal: {_name} +{_points} points");
+        Console.WriteLine(" ");
+        Console.WriteLine($"Progress on checklist goal: {_name}, +{_points} points");
 
         if (_interval == _targetCount)
         {
-            _points += 1000;
             Console.WriteLine($"Completed checklist goal: {_name} +1000 bonus points!");
         }
-        //return _totalPoints;
     }
 
     public override string IsComplete()

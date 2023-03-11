@@ -15,29 +15,20 @@ public abstract class Goal
 
     public abstract string GetName();
 
-    //{
-        //Console.WriteLine("What is the name for your goal? ");
-        //_name = Console.ReadLine();
-        //return _name;
-    //}
     public void SetName(string name)
     {
         _name = name;
     }
 
     public abstract string GetDescription();
-    //{
-    //    return _description;
-    //}
+    
     public void SetDescription(string description)
     {
         _description = description;
     }
 
     public abstract int GetPoints();
-    //{
-    //    return _points;
-    //}
+   
     public void SetPoints(int points)
     {
         _points = points;

@@ -35,8 +35,6 @@ public class EternalGoal : Goal
         _interval++;
         Console.WriteLine($"Progress on eternal goal: {_name} +{_points} points");
         Console.WriteLine($"Points awarded: {_points}");
-
-        //return _totalPoints;
     }
 
     public override string IsComplete()

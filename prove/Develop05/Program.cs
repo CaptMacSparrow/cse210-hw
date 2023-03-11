@@ -51,10 +51,8 @@ public class Program
             string strInterval = "";
             int targetCount = 0;
             string strTargetCount = "";
-            //string tempFile = "goalsFile.txt";
             string goalFile = "";
-           
-            
+            string _strTotalPoints = "";
 
             switch (_selection)
             {
@@ -73,13 +71,9 @@ public class Program
                         
                         using (StreamWriter outputFile = new StreamWriter(tempFile, append: true))
                         {
-                            outputFile.WriteLine("SimpleGoal" + "|" + sg._name + "|" + sg._description + "|" + sg._points + "|" + "0" + "|" + "0" + "|" + "0");
-                            //outputFile.WriteLine(sg._description);
-                            //outputFile.WriteLine("Points: " + sg._points);
+                            outputFile.WriteLine("SimpleGoal" + "|" + sg._name + "|" + sg._description + "|" + sg._points + "|" + "0" + "|" + "0" + "|" + "0" + "|" + " ");
                         } 
-                    }
-                    //string filename = "myFile.txt";
-                    
+                    }                    
                     
                     else if (goalType == "2")
                     {
@@ -91,12 +85,9 @@ public class Program
 
                         using (StreamWriter outputFile = new StreamWriter(tempFile, append: true))
                         {
-                            outputFile.WriteLine("EternalGoal" + "|" + eg._name + "|" + eg._description + "|" + eg._points + "|" + "0" + "|" + "0" + "|" + "0");
-                            //outputFile.WriteLine(eg._description);
-                            //outputFile.WriteLine("Points: " + eg._points);
+                            outputFile.WriteLine("EternalGoal" + "|" + eg._name + "|" + eg._description + "|" + eg._points + "|" + "0" + "|" + "0" + "|" + "0" + "|" + " ");
                         } 
                     }
-                    //break;
 
                     else if (goalType == "3")
                     {
@@ -110,10 +101,7 @@ public class Program
                        
                         using (StreamWriter outputFile = new StreamWriter(tempFile, append: true))
                         {
-                            outputFile.WriteLine("ChecklistGoal" + "|" + cg._name + "|" + cg._description + "|" + cg._points + "|" + cg._bonusPoints + "|" + cg._targetCount + "|" + cg._interval);
-                            //outputFile.WriteLine(cg._description);
-                            //outputFile.WriteLine("Points: " + cg._points);
-                            //outputFile.WriteLine(cg._targetCount + " times for " + cg._bonusPoints + " points");
+                            outputFile.WriteLine("ChecklistGoal" + "|" + cg._name + "|" + cg._description + "|" + cg._points + "|" + cg._bonusPoints + "|" + cg._targetCount + "|" + cg._interval + "|" + " ");
                         }
                     }
                     break;
@@ -131,20 +119,35 @@ public class Program
 
                     var lineCount = File.ReadLines(tempFile).Count();
                     var counter = 0;
-
-                    while (counter < lineCount)
+                
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The goals are: ");
+                    
+                    foreach (string line in lines)
                     {
-                        Console.WriteLine(lines[counter]);
+                        if (counter != 0)
+                        {
+                            string[] parts = line.Split("|");
+                            string type = parts[0];
+                            string _name = parts[1];
+                            string _description = parts[2];
+                            string _strPoints = parts[3];
+                            string _strBonusPoints = parts[4];
+                            string _strTargetCount = parts[5];
+                            string _strInterval = parts[6];
+                            string _isCompleted = parts[7];
+                            //shows goals
+                            if (type == "ChecklistGoal")
+                            {
+                                Console.WriteLine(counter + $". [{_isCompleted}] " + _name + " (" + _description + $") -- Currently completed:  {_strInterval}/{_strTargetCount}");
+                            }
+                            else
+                            {
+                                Console.WriteLine(counter + $". [{_isCompleted}] " + _name + " (" + _description + ")");
+                            }
+                        }
                         counter++;
                     }
-                        //foreach (string line in lines)
-                        //{
-                        //    string[] parts = line.Split(",");
-
-                            //string firstName = parts[0];
-                            //string lastName = parts[1];
-                        //}
-                    //}
                     break;
                 
                 case "3":   //save goals to file
@@ -176,7 +179,6 @@ public class Program
                         string[] loadLines = System.IO.File.ReadAllLines(loadGoalFile);
                         var loadLineCount = File.ReadLines(loadGoalFile).Count();
                         var loadCounter = 0;
-                        string _strTotalPoints = "";
 
                         while (loadCounter < loadLineCount)
                         {
@@ -186,7 +188,7 @@ public class Program
                             if (loadCounter == 0)
                             {
                                 _strTotalPoints = loadLines[0];
-                                totalPoints = Convert.ToInt32(_strTotalPoints);
+                                _totalPoints = Convert.ToInt32(_strTotalPoints);
                             }
                             loadCounter++;
                         }
@@ -199,15 +201,8 @@ public class Program
 
                     var lineCount1 = File.ReadLines(tempFile).Count();
                     var counter1 = 0;
-
-                    //while (counter1 < lineCount1)
-                    //{
-                    //    Console.WriteLine(lines1[counter1]);
-                    //    counter1++;
-                   //}
-
-                    //string filename = "myFile.txt";
-                    //string[] lines = System.IO.File.ReadAllLines(filename);
+                    Console.WriteLine("");
+                    Console.WriteLine("The goals are: ");
 
                     foreach (string line in lines1)
                     {
@@ -226,6 +221,7 @@ public class Program
                             Console.WriteLine(counter1 -1 + ". " + _name + " (" + _description + ")");
                         }
                     }
+
                     Console.WriteLine(" ");                    
                     Console.WriteLine("Which goal did you accomplish? Enter the appropriate number.  ");
                     string _strRecordNumber = Console.ReadLine();
@@ -242,51 +238,72 @@ public class Program
                     int _targetCount1 = Convert.ToInt32(_strTargetCount1);
                     string _strInterval1 = parts1[6];
                     int _interval1 = Convert.ToInt32(_strInterval1);
+                    string _isCompleted1 = parts1[7];
+
                     switch (type1)
                     {
                         case "SimpleGoal":
                             SimpleGoal sg = new SimpleGoal(_name1, _description1, _points1, totalPoints, _strPoints1);
                             sg.RecordEvent();
                             _totalPoints += _points1;
+                            _strTotalPoints = Convert.ToString(_totalPoints); 
+                            lineChanger(_strTotalPoints, tempFile, 1);
                         break;
 
                         case "EternalGoal":
                             EternalGoal eg = new EternalGoal(_name1, _description1, _points1, totalPoints, _strPoints1, _interval1, _strInterval1);
                             eg.RecordEvent();
                             _totalPoints += _points1;
+                            _strTotalPoints = Convert.ToString(_totalPoints); 
+                            lineChanger(_strTotalPoints, tempFile, 1);
                         break;
 
                         case "ChecklistGoal":
                             ChecklistGoal cg = new ChecklistGoal(_name1, _description1, _points1, totalPoints, _bonusPoints1, _strPoints1, _targetCount1, _strTargetCount1, _strBonusPoints1, _interval1, _strInterval1);
                             cg.RecordEvent();
                             _totalPoints += _points1;
+                            _strTotalPoints = Convert.ToString(_totalPoints); 
+                            lineChanger(_strTotalPoints, tempFile, 1);
                         break;
                     }
 
+                    if (type1 == "SimpleGoal")
+                    { 
+                        lineChanger(type1 + "|" + _name1 + "|" + _description1 + "|" + _strPoints1 + "|" + _strBonusPoints1 + "|" + _strTargetCount1 + "|" + _strInterval1 + "|" + "x", tempFile, _recordNumber + 1);
+                    }
+                    if (type1 == "ChecklistGoal")
+                    {
+                        _interval1++;
+                        _strInterval1 = Convert.ToString(_interval1);
+                        if (_interval1 == _targetCount1)
+                        {
+                            _totalPoints += _bonusPoints1;
+                            _strTotalPoints = Convert.ToString(_totalPoints);
+                            lineChanger(type1 + "|" + _name1 + "|" + _description1 + "|" + _strPoints1 + "|" + _strBonusPoints1 + "|" + _strTargetCount1 + "|" + _strInterval1 + "|" + "x", tempFile, _recordNumber + 1);
+                            Console.WriteLine($"Completed!");
+                        }
+                        else
+                        {
+                            lineChanger(type1 + "|" + _name1 + "|" + _description1 + "|" + _strPoints1 + "|" + _strBonusPoints1 + "|" + _strTargetCount1 + "|" + _strInterval1 + "|" + " ", tempFile, _recordNumber + 1);
+                        }
+                    }
                     
+
                     break;
                 
                 case "6":
                     File.WriteAllText(tempFile, String.Empty);
                     Console.WriteLine("Come back soon! ");
-                    //foreach (SimpleGoal sg in goals)
-                    //{
-                    //    Console.WriteLine();
-                    //    Console.WriteLine(sg._name);
-                    //    Console.WriteLine(sg._description);
-                    //    Console.WriteLine(sg._points);
-                    //    Console.WriteLine();
-                    //}
-                    //foreach (EternalGoal eg in goals)
-                    //{
-                    //    Console.WriteLine();
-                    //    Console.WriteLine(eg._name);
-                    //    Console.WriteLine(eg._description);
-                    //    Console.WriteLine(eg._points);
-                    //    Console.WriteLine();
-                    //}
+                    
                     return;
             }
+        }
+        
+        static void lineChanger(string newText, string fileName, int line_to_edit)
+        {
+            string[] arrLine = File.ReadAllLines(fileName);
+            arrLine[line_to_edit - 1] = newText;
+            File.WriteAllLines(fileName, arrLine);
         }
     }
 }

@@ -1,8 +1,6 @@
 public class SimpleGoal : Goal
 {
-    //private int _bonusPoints;
     private string _strPoints;
-    //private int _totalPoints;
 
     public SimpleGoal(string name, string description, int points, int totalPoints, string strPoints) : base(name, description, points, totalPoints)
     {
@@ -37,8 +35,6 @@ public class SimpleGoal : Goal
     {
         Console.WriteLine($"Goal completed: {_name}, {_description}");
         Console.WriteLine($"Points awarded: {_points}");
-        //_totalPoints += _points;
-        //return _points;
     }
 
     public override string IsComplete()
