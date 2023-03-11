@@ -1,3 +1,0 @@
-simple
-goal
-5000
