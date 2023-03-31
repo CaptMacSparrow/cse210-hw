@@ -17,6 +17,8 @@ public class Event
         _address = address;
     }
 
+    public string Type=> _type;
+    public string Title=> _title;
     public string GetType()
     {
         return _type;
